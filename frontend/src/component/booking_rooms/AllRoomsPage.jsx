@@ -26,6 +26,7 @@ const AllRoomsPage = () => {
       try {
         const response = await ApiService.getAllRooms();
         const allRooms = response.roomList;
+      
         setRooms(allRooms);
         setFilteredRooms(allRooms);
       } catch (error) {

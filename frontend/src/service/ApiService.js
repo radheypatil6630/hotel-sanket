@@ -85,6 +85,7 @@ export default class ApiService {
     /* This  gets all availavle rooms */
     static async getAllAvailableRooms() {
         const result = await axios.get(`${this.BASE_URL}/rooms/all-available-rooms`)
+        console.log(result.data)
         return result.data
     }
 
@@ -143,6 +144,7 @@ export default class ApiService {
         const response = await axios.post(`${this.BASE_URL}/bookings/book-room/${roomId}/${userId}`, booking, {
             headers: this.getHeader()
         })
+        console.log(response.data);
         return response.data
     }
 

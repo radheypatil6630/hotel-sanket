@@ -72,67 +72,6 @@ const RoomDetailsPage = () => {
     setTotalGuests(totalGuests);
   };
 
-// const acceptBooking = async () => {
-//   try {
-//     // Ensure checkInDate and checkOutDate are Date objects
-//     const startDate = new Date(checkInDate);
-//     const endDate = new Date(checkOutDate);
-
-//     // Convert dates to YYYY-MM-DD format
-//     const formattedCheckInDate = new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000))
-//       .toISOString().split('T')[0];
-//     const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000))
-//       .toISOString().split('T')[0];
-
-//     // Create booking object
-//     const booking = {
-//       checkInDate: formattedCheckInDate,
-//       checkOutDate: formattedCheckOutDate,
-//       numOfAdults: numAdults,
-//       numOfChildren: numChildren
-//     };
-
-//     console.log("Sending booking:", booking);
-
-//     // Make booking
-//     const response = await ApiService.bookRoom(roomId, userId, booking);
-
-//     // Only trigger Razorpay if booking succeeded
-//     if (response.statusCode === 200) {
-//       // ⬇️ Add Razorpay Payment Step Here
-//       const options = {
-//         key: "rzp_test_P6Vfg99dxGR0Ji", // Replace with your test/live key
-//         amount: response.amount, // Amount in paise
-//         currency: response.currency || "INR",
-//         name: "Room Booking",
-//         description: "Hotel room booking payment",
-//         order_id: response.razorpayOrderId, // Order ID from backend
-//         handler: function (razorpayResponse) {
-//           alert("Payment successful! Payment ID: " + razorpayResponse.razorpay_payment_id);
-
-//           setConfirmationCode(response.bookingConfirmationCode); // Set confirmation code
-//           setShowMessage(true);
-
-//           // Navigate after 5 sec
-//           setTimeout(() => {
-//             setShowMessage(false);
-//             navigate('/rooms');
-//           }, 10000);
-//         },
-//         theme: {
-//           color: "#3399cc",
-//         }
-//       };
-
-//       const rzp = new window.Razorpay(options);
-//       rzp.open();
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     setErrorMessage(error.response?.data?.message || error.message);
-//     setTimeout(() => setErrorMessage(''), 5000);
-//   }
-// };
 
 
 
@@ -153,31 +92,55 @@ const RoomDetailsPage = () => {
       const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
 
 
-      // Log the original dates for debugging
-      console.log("Formated Check-in Date:", formattedCheckInDate);
-      console.log("Formated Check-out Date:", formattedCheckOutDate);
 
-      // Create booking object
+   
+      const orderResponse = await fetch('http://localhost:4040/api/payments/create-order?amount=1000&currency=INR', {
+        method: 'POST',
+      });
+
+      const order = await orderResponse.json();
+
+      const options = {
+        key: "rzp_test_P6Vfg99dxGR0Ji",
+        amount: order.amount,
+        currency: order.currency,
+        name: "Hotel sanket",
+        description: "Payment Transaction",
+        order_id: order.id,
+        handler: async function (response) {
+          alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+
       const booking = {
         checkInDate: formattedCheckInDate,
         checkOutDate: formattedCheckOutDate,
         numOfAdults: numAdults,
         numOfChildren: numChildren
       };
-      console.log(booking)
-      console.log(checkOutDate)
+   
 
-      // Make booking
-      const response = await ApiService.bookRoom(roomId, userId, booking);
-      if (response.statusCode === 200) {
-        setConfirmationCode(response.bookingConfirmationCode); // Set booking confirmation code
-        setShowMessage(true); // Show message
-        // Hide message and navigate to homepage after 5 seconds
+  
+  
+
+        const bookingResponse = await ApiService.bookRoom(roomId, userId, booking);
+      if (bookingResponse.statusCode === 200) {
+        setConfirmationCode(bookingResponse.bookingConfirmationCode); 
+        setShowMessage(true); 
         setTimeout(() => {
           setShowMessage(false);
-          navigate('/rooms'); // Navigate to rooms
-        }, 10000);
+          navigate('/rooms'); 
+        }, 5000);
       }
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+
+      
+   
     } catch (error) {
       setErrorMessage(error.response?.data?.message || error.message);
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds

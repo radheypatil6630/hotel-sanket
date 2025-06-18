@@ -33,10 +33,11 @@ public class BookingService implements IBookingService {
 
     @Override
     public Response saveBooking(Long roomId, Long userId, Booking bookingRequest) {
-
+        System.out.println("Inside controller method");
         Response response = new Response();
 
         try {
+            System.out.println("Inside controller method1");
             if (bookingRequest.getCheckOutDate().isBefore(bookingRequest.getCheckInDate())) {
                 throw new IllegalArgumentException("Check in date must come after check out date");
             }
@@ -49,18 +50,23 @@ public class BookingService implements IBookingService {
                 throw new OurException("Room not Available for selected date range");
             }
 
+            System.out.println("Inside controller method2 ");
             bookingRequest.setRoom(room);
             bookingRequest.setUser(user);
             String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
             bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
-            bookingRepository.save(bookingRequest);
+            Booking savedBooking =  bookingRepository.save(bookingRequest);
+
+            System.out.println("Saved booking: " + savedBooking);
+
             response.setStatusCode(200);
             response.setMessage("successful");
             response.setBookingConfirmationCode(bookingConfirmationCode);
 
-        } catch (OurException e) {
-            response.setStatusCode(404);
-            response.setMessage(e.getMessage());
+
+//        } catch (OurException e) {
+//            response.setStatusCode(404);
+//            response.setMessage(e.getMessage());
 
         } catch (Exception e) {
             response.setStatusCode(500);

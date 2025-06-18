@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/bookings")
 
@@ -26,6 +25,11 @@ public class BookingController {
 
 
         Response response = bookingService.saveBooking(roomId, userId, bookingRequest);
+
+        System.out.println("roomId: " + roomId);
+        System.out.println("userId: " + userId);
+        System.out.println("Received booking: " + bookingRequest);
+
 
         return ResponseEntity.status(response.getStatusCode()).body(response );
 

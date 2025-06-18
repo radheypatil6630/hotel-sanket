@@ -16,12 +16,12 @@ const HomePage = () => {
 
   useEffect(() => {
  
-    ApiService.getAllAvailableRooms()
+    ApiService.getAllRooms()
       .then((data) => {
         setAllRooms(data.roomList);  
         setRoomSearchResults([]);
-        // setRoomSearchResults(data.roomList);  
-        console.log("rooms :", data.roomList);  
+        setRoomSearchResults(data.roomList);  
+       
       })
       .catch((error) => {
         console.error("Error fetching rooms:", error);
