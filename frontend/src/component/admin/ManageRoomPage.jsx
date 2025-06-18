@@ -62,27 +62,41 @@ const ManageRoomPage = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className='all-rooms'>
-      <h2>All Rooms</h2>
-      <div className='all-room-filter-div' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className='filter-select-div'>
-          <label>Filter by Room Type:</label>
-          <select value={selectedRoomType} onChange={handleRoomTypeChange}>
-            <option value="">All</option>
-            {roomTypes.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-          <button className='add-room-button' onClick={() => navigate('/admin/add-room')}>
-            Add Room
-          </button>
-        </div>
+    <div className="max-w-5xl mx-auto my-10 px-6">
+    <h2 className="text-3xl font-bold font-serif text-center text-secondary mb-8">All Rooms</h2>
+  
+    {/* Filter Section */}
+    <div className="flex justify-between items-center mb-8">
+      <div className="flex items-center gap-4">
+        <label className="font-semibold text-gray-700">Filter by Room Type:</label>
+        <select
+          value={selectedRoomType}
+          onChange={handleRoomTypeChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-btn_bg"
+        >
+          <option value="">All</option>
+          {roomTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
       </div>
-
-      <RoomResult roomSearchResults={currentRooms} />
-
+  
+      {/* Add Room Button */}
+      <button
+        className="bg-btn_bg text-white px-5 py-2 rounded-md font-semibold hover:bg-hover_btn_bg transition"
+        onClick={() => navigate('/admin/add-room')}
+      >
+        Add Room
+      </button>
+    </div>
+  
+    {/* Room Results */}
+    <RoomResult roomSearchResults={currentRooms} />
+  
+    {/* Pagination */}
+    <div className="mt-10">
       <Pagination
         roomsPerPage={roomsPerPage}
         totalRooms={filteredRooms.length}
@@ -90,6 +104,8 @@ const ManageRoomPage = () => {
         paginate={paginate}
       />
     </div>
+  </div>
+  
   );
 };
 

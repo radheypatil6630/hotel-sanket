@@ -70,11 +70,18 @@ const AllRoomsPage = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className='all-rooms'>
-      <h2>All Rooms</h2>
-      <div className='all-room-filter-div'>
-        <label>Filter by Room Type:</label>
-        <select value={selectedRoomType} onChange={handleRoomTypeChange}>
+    <div className="max-w-6xl mx-auto my-10 px-6">
+    <h2 className="text-4xl font-bold font-serif text-center text-secondary  mb-8">All Rooms</h2>
+  
+    {/* Filter by Room Type */}
+    <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
+      <div className="flex items-center gap-4">
+        <label className="font-semibold text-gray-700">Filter by Room Type:</label>
+        <select
+          value={selectedRoomType}
+          onChange={handleRoomTypeChange}
+          className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+        >
           <option value="">All</option>
           {roomTypes.map((type) => (
             <option key={type} value={type}>
@@ -83,10 +90,17 @@ const AllRoomsPage = () => {
           ))}
         </select>
       </div>
-      
-      <RoomSearch handleSearchResult={handleSearchResult} />
-      <RoomResult roomSearchResults={currentRooms} />
+    </div>
+  
+    <div className=" w-full max-w-6xl px-4 mb-4 lg:mb-20">
+    <RoomSearch  handleSearchResult={handleSearchResult} />
+    </div>
 
+    {/* Search Results */}
+    <RoomResult roomSearchResults={currentRooms} />
+  
+    {/* Pagination */}
+    <div className="mt-10">
       <Pagination
         roomsPerPage={roomsPerPage}
         totalRooms={filteredRooms.length}
@@ -94,6 +108,9 @@ const AllRoomsPage = () => {
         paginate={paginate}
       />
     </div>
+  </div>
+  
+  
   );
 };
 

@@ -2,11 +2,14 @@ const FooterComponent = () => {
 
 
     return (
-        <footer>
-            <span className="my-footer">
-                Phegon Hotel | All Right Reserved &copy; {new Date().getFullYear()}
+        <footer className="bg-gray-400 text-black py-4">
+        <div className="container mx-auto text-center">
+            <span className="text-md">
+                 Hotel Sanket | All Rights Reserved &copy; {new Date().getFullYear()}
             </span>
-        </footer>
+        </div>
+    </footer>
+    
     );
 };
 

@@ -100,55 +100,92 @@ const EditRoomPage = () => {
     };
 
     return (
-        <div className="edit-room-container">
-            <h2>Edit Room</h2>
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
-            <div className="edit-room-form">
-                <div className="form-group">
-                    {preview ? (
-                        <img src={preview} alt="Room Preview" className="room-photo-preview" />
-                    ) : (
-                        roomDetails.roomPhotoUrl && (
-                            <img src={roomDetails.roomPhotoUrl} alt="Room" className="room-photo" />
-                        )
-                    )}
-                    <input
-                        type="file"
-                        name="roomPhoto"
-                        onChange={handleFileChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Room Type</label>
-                    <input
-                        type="text"
-                        name="roomType"
-                        value={roomDetails.roomType}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Room Price</label>
-                    <input
-                        type="text"
-                        name="roomPrice"
-                        value={roomDetails.roomPrice}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Room Description</label>
-                    <textarea
-                        name="roomDescription"
-                        value={roomDetails.roomDescription}
-                        onChange={handleChange}
-                    ></textarea>
-                </div>
-                <button className="update-button" onClick={handleUpdate}>Update Room</button>
-                <button className="delete-button" onClick={handleDelete}>Delete Room</button>
-            </div>
+        <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-xl shadow-[#a7ba9c] border border-gray-300 rounded-xl hover:shadow-[#687a5e]   rounded-lg overflow-hidden ">
+        <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-6">Edit Room</h2>
+      
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        {success && <p className="text-green-600 text-center mb-4">{success}</p>}
+      
+        <div className="space-y-6">
+          {/* Image Preview */}
+          <div className="flex flex-col items-center space-y-3">
+            {preview ? (
+              <img src={preview} alt="Room Preview" className="w-full max-h-64 object-cover rounded-md shadow" />
+            ) : roomDetails.roomPhotoUrl && (
+              <img src={roomDetails.roomPhotoUrl} alt="Room" className="w-full max-h-64 object-cover rounded-md shadow" />
+            )}
+            <input
+              type="file"
+              name="roomPhoto"
+              onChange={handleFileChange}
+              className="mt-2"
+            />
+          </div>
+         
+          <div>
+            <label className="block font-semibold text-gray-700 mb-1">Room Location</label>
+            <input
+              type="text"
+              name="roomType"
+              // value={roomDetails.roomType}
+              // onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            />
+          </div>
+
+          {/* Room Type */}
+          <div>
+            <label className="block font-semibold text-gray-700 mb-1">Room Type</label>
+            <input
+              type="text"
+              name="roomType"
+              value={roomDetails.roomType}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            />
+          </div>
+      
+          {/* Room Price */}
+          <div>
+            <label className="block font-semibold text-gray-700 mb-1">Room Price</label>
+            <input
+              type="text"
+              name="roomPrice"
+              value={roomDetails.roomPrice}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            />
+          </div>
+      
+          {/* Room Description */}
+          <div>
+            <label className="block font-semibold text-gray-700 mb-1">Room Description</label>
+            <textarea
+              name="roomDescription"
+              value={roomDetails.roomDescription}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            ></textarea>
+          </div>
+      
+          {/* Action Buttons */}
+          <div className="flex flex-col md:flex-row gap-4 mt-6">
+            <button
+              className="w-full bg-[#629645]  text-white font-bold py-3 rounded-md hover:bg-[#4f8a2f] transition duration-300"
+              onClick={handleUpdate}
+            >
+              Update Room
+            </button>
+            <button
+              className="w-full bg-red-600 text-white font-bold py-3 rounded-md hover:bg-red-700 transition duration-300"
+              onClick={handleDelete}
+            >
+              Delete Room
+            </button>
+          </div>
         </div>
+      </div>
+      
     );
 };
 

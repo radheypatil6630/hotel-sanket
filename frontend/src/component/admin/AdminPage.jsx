@@ -20,17 +20,25 @@ const AdminPage = () => {
     }, []);
 
     return (
-        <div className="admin-page">
-            <h1 className="welcome-message">Welcome, {adminName}</h1>
-            <div className="admin-actions">
-                <button className="admin-button" onClick={() => navigate('/admin/manage-rooms')}>
-                    Manage Rooms
-                </button>
-                <button className="admin-button" onClick={() => navigate('/admin/manage-bookings')}>
-                    Manage Bookings
-                </button>
-            </div>
+        <div className="max-w-3xl mx-auto my-16 p-8 bg-white shadow-md rounded-xl text-center border border-gray-300 shadow-[#687a5e]">
+        <h1 className="text-3xl font-bold font-serif text-secondary mb-8">Welcome, {adminName}</h1>
+      
+        <div className="flex flex-col sm:flex-row justify-evenly items-center gap-6">
+          <button
+            className="bg-btn_bg text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-hover_btn_bg transition-colors duration-300 w-full sm:w-auto"
+            onClick={() => navigate('/admin/manage-rooms')}
+          >
+            Manage Rooms
+          </button>
+          <button
+            className="bg-btn_bg text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-hover_btn_bg transition-colors duration-300 w-full sm:w-auto"
+            onClick={() => navigate('/admin/manage-bookings')}
+          >
+            Manage Bookings
+          </button>
         </div>
+      </div>
+      
     );
 }
 

@@ -47,47 +47,58 @@ const EditBookingPage = () => {
     };
 
     return (
-        <div className="find-booking-page">
-            <h2>Booking Detail</h2>
-            {error && <p className='error-message'>{error}</p>}
-            {success && <p className='success-message'>{success}</p>}
-            {bookingDetails && (
-                <div className="booking-details">
-                    <h3>Booking Details</h3>
-                    <p>Confirmation Code: {bookingDetails.bookingConfirmationCode}</p>
-                    <p>Check-in Date: {bookingDetails.checkInDate}</p>
-                    <p>Check-out Date: {bookingDetails.checkOutDate}</p>
-                    <p>Num Of Adults: {bookingDetails.numOfAdults}</p>
-                    <p>Num Of Children: {bookingDetails.numOfChildren}</p>
-                    <p>Guest Email: {bookingDetails.guestEmail}</p>
+<div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-xl shadow-[#687a5e] rounded-xl border border-gray-300 ">
+  <h2 className="text-3xl font-bold font-serif text-center text-secondary mb-6">Booking Details</h2>
 
-                    <br />
-                    <hr />
-                    <br />
-                    <h3>Booker Detials</h3>
-                    <div>
-                        <p> Name: {bookingDetails.user.name}</p>
-                        <p> Email: {bookingDetails.user.email}</p>
-                        <p> Phone Number: {bookingDetails.user.phoneNumber}</p>
-                    </div>
+  {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+  {success && <p className="text-green-600 text-center mb-4">{success}</p>}
 
-                    <br />
-                    <hr />
-                    <br />
-                    <h3>Room Details</h3>
-                    <div>
-                        <p> Room Type: {bookingDetails.room.roomType}</p>
-                        <p> Room Price: ${bookingDetails.room.roomPrice}</p>
-                        <p> Room Description: {bookingDetails.room.roomDescription}</p>
-                        <img src={bookingDetails.room.roomPhotoUrl} alt="" sizes="" srcSet="" />
-                    </div>
-                    <button
-                        className="acheive-booking"
-                        onClick={() => acheiveBooking(bookingDetails.id)}>Acheive Booking
-                    </button>
-                </div>
-            )}
-        </div>
+  {bookingDetails && (
+    <div className="space-y-8 ">
+      {/* Booking Info */}
+      <div className="border-l-4  border-btn_bg  pl-4 flex flex-col gap-4">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Booking Info</h3>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Confirmation Code:</span> {bookingDetails.bookingConfirmationCode}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Check-in:</span> {bookingDetails.checkInDate}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Check-out:</span> {bookingDetails.checkOutDate}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Adults:</span> {bookingDetails.numOfAdults}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Children:</span> {bookingDetails.numOfChildren}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Guest Email:</span> {bookingDetails.guestEmail}</p>
+      </div>
+
+      {/* Booker Info */}
+    
+      <div className="border-l-4  border-btn_bg  pl-4 flex flex-col gap-4">
+  
+        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Booker Details</h3>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Name:</span> {bookingDetails.user.name}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Email:</span> {bookingDetails.user.email}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Phone:</span> {bookingDetails.user.phoneNumber}</p>
+      </div>
+
+      {/* Room Info */}
+      <div className="border-l-4 border-btn_bg pl-4 flex flex-col gap-4">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-2">Room Details</h3>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Type:</span> {bookingDetails.room.roomType}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Price:</span> ${bookingDetails.room.roomPrice}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Description:</span> {bookingDetails.room.roomDescription}</p>
+        <img
+          src={bookingDetails.room.roomPhotoUrl}
+          alt="Room"
+          className="mt-4 w-full max-h-72 object-cover rounded-md shadow"
+        />
+      </div>
+
+      <button
+        onClick={() => acheiveBooking(bookingDetails.id)}
+        className="w-full bg-btn_bg text-white font-bold py-3 rounded-md hover:bg-hover_btn_bg transition-colors duration-300"
+      >
+        Archive Booking
+      </button>
+    </div>
+  )}
+</div>
+
     );
 };
 

@@ -53,40 +53,50 @@ const ManageBookingsPage = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
-        <div className='bookings-container'>
-            <h2>All Bookings</h2>
-            <div className='search-div'>
-                <label>Filter by Booking Number:</label>
-                <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="Enter booking number"
-                />
-            </div>
-
-            <div className="booking-results">
-                {currentBookings.map((booking) => (
-                    <div key={booking.id} className="booking-result-item">
-                        <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
-                        <p><strong>Check In Date:</strong> {booking.checkInDate}</p>
-                        <p><strong>Check out Date:</strong> {booking.checkOutDate}</p>
-                        <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
-                        <button
-                            className="edit-room-button"
-                            onClick={() => navigate(`/admin/edit-booking/${booking.bookingConfirmationCode}`)}
-                        >Manage Booking</button>
-                    </div>
-                ))}
-            </div>
-
-            <Pagination
-                roomsPerPage={bookingsPerPage}
-                totalRooms={filteredBookings.length}
-                currentPage={currentPage}
-                paginate={paginate}
-            />
+        <div className="max-w-5xl mx-auto my-10 px-6">
+        <h2 className="text-3xl font-bold font-serif text-center text-secondary mb-8">All Bookings</h2>
+      
+        {/* Search */}
+        <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <label className="font-semibold text-gray-700">Filter by Booking Number:</label>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Enter booking number"
+            className="w-full sm:w-72 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+          />
         </div>
+      
+        {/* Booking Results */}
+        <div className="grid gap-6">
+          {currentBookings.map((booking) => (
+            <div key={booking.id} className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+              <p><strong className="text-gray-900 text-lg">Booking Code:</strong> {booking.bookingConfirmationCode}</p>
+              <p><strong className="text-gray-700">Check In Date:</strong> {booking.checkInDate}</p>
+              <p><strong className="text-gray-700">Check Out Date:</strong> {booking.checkOutDate}</p>
+              <p><strong className="text-gray-700">Total Guests:</strong> {booking.totalNumOfGuest}</p>
+              <button
+                className="mt-4 px-5 py-2 bg-btn_bg text-white rounded-md font-semibold hover:bg-hover_btn_bg transition"
+                onClick={() => navigate(`/admin/edit-booking/${booking.bookingConfirmationCode}`)}
+              >
+                Manage Booking
+              </button>
+            </div>
+          ))}
+        </div>
+      
+        {/* Pagination */}
+        <div className="mt-10">
+          <Pagination
+            roomsPerPage={bookingsPerPage}
+            totalRooms={filteredBookings.length}
+            currentPage={currentPage}
+            paginate={paginate}
+          />
+        </div>
+      </div>
+      
     );
 };
 

@@ -102,61 +102,112 @@ const AddRoomPage = () => {
     };
 
     return (
-        <div className="edit-room-container">
-            <h2>Add New Room</h2>
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
-            <div className="edit-room-form">
-                <div className="form-group">
-                    {preview && (
-                        <img src={preview} alt="Room Preview" className="room-photo-preview" />
-                    )}
-                    <input
-                        type="file"
-                        name="roomPhoto"
-                        onChange={handleFileChange}
-                    />
-                </div>
+        <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-lg border border-gray-300  hover:shadow-[#687a5e]  overflow-hidden rounded-xl">
+        <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-6">Add New Room</h2>
+      
+        {error && <p className="text-red-500 text-sm text-center mb-2">{error}</p>}
+        {success && <p className="text-green-600 text-sm text-center mb-2">{success}</p>}
+      
+        <div className="space-y-6">
+          <div className="flex flex-col gap-3">
+            {preview && (
+              <img src={preview} alt="Room Preview" className="w-full max-h-64 object-cover rounded-lg shadow" />
+            )}
+            <input
+              type="file"
+              name="roomPhoto"
+              onChange={handleFileChange}
+              className="border border-gray-300 rounded-md px-3 py-2 w-full"
+            />
+          </div>
+      
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Room Type</label>
+            <select
+              value={roomDetails.roomType}
+              onChange={handleRoomTypeChange}
+              className="border border-gray-300 rounded-md px-3 py-2"
+            >
+              <option value="">Select a room type</option>
+              {roomTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+              <option value="new">Other (please specify)</option>
+            </select>
+      
+            {newRoomType && (
+              <input
+                type="text"
+                name="roomType"
+                placeholder="Enter new room type"
+                value={roomDetails.roomType}
+                onChange={handleChange}
+                className="border border-gray-300 rounded-md px-3 py-2"
+              />
+            )}
+          </div>
+      
+          <div className="flex flex-col gap-2 border-1">
+            <label className="font-semibold">Room Location</label>
+            <select
+              value={roomDetails.roomType}
+              onChange={handleRoomTypeChange}
+              className="border border-gray-300 rounded-md px-3 py-2"
+            >
+              <option value="">Select a room location</option>
+              {roomTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+              <option value="new">Other (please specify)</option>
+            </select>
+      
+            {newRoomType && (
+              <input
+                type="text"
+                name="roomType"
+                placeholder="Enter new room location"
+                value={roomDetails.roomType}
+                onChange={handleChange}
+                className="border border-gray-300 active : border-1 active:border-green-300 rounded-md px-3 py-2"
+              />
+            )}
+          </div>
 
-                <div className="form-group">
-                    <label>Room Type</label>
-                    <select value={roomDetails.roomType} onChange={handleRoomTypeChange}>
-                        <option value="">Select a room type</option>
-                        {roomTypes.map(type => (
-                            <option key={type} value={type}>{type}</option>
-                        ))}
-                        <option value="new">Other (please specify)</option>
-                    </select>
-                    {newRoomType && (
-                        <input
-                            type="text"
-                            name="roomType"
-                            placeholder="Enter new room type"
-                            value={roomDetails.roomType}
-                            onChange={handleChange}
-                        />
-                    )}
-                </div>
-                <div className="form-group">
-                    <label>Room Price</label>
-                    <input
-                        type="text"
-                        name="roomPrice"
-                        value={roomDetails.roomPrice}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Room Description</label>
-                    <textarea
-                        name="roomDescription"
-                        value={roomDetails.roomDescription}
-                        onChange={handleChange}
-                    ></textarea>
-                </div>
-                <button className="update-button" onClick={addRoom}>Add Room</button>
-            </div>
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Room Price</label>
+            <input
+              type="text"
+              name="roomPrice"
+              value={roomDetails.roomPrice}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md px-3 py-2"
+            />
+          </div>
+      
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Room Description</label>
+            <textarea
+              name="roomDescription"
+              value={roomDetails.roomDescription}
+              onChange={handleChange}
+              rows="4"
+              className="border border-gray-300 rounded-md px-3 py-2 resize-none"
+            ></textarea>
+          </div>
+      
+          <button
+            onClick={addRoom}
+            className="w-full bg-[#629645] text-white font-bold py-3 rounded-md hover:bg-[#4f8a2f] transition-colors duration-300"
+          >
+            Add Room
+          </button>
         </div>
+      </div>
+      
     );
 };
 

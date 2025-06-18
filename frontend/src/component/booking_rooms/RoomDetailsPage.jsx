@@ -72,6 +72,71 @@ const RoomDetailsPage = () => {
     setTotalGuests(totalGuests);
   };
 
+// const acceptBooking = async () => {
+//   try {
+//     // Ensure checkInDate and checkOutDate are Date objects
+//     const startDate = new Date(checkInDate);
+//     const endDate = new Date(checkOutDate);
+
+//     // Convert dates to YYYY-MM-DD format
+//     const formattedCheckInDate = new Date(startDate.getTime() - (startDate.getTimezoneOffset() * 60000))
+//       .toISOString().split('T')[0];
+//     const formattedCheckOutDate = new Date(endDate.getTime() - (endDate.getTimezoneOffset() * 60000))
+//       .toISOString().split('T')[0];
+
+//     // Create booking object
+//     const booking = {
+//       checkInDate: formattedCheckInDate,
+//       checkOutDate: formattedCheckOutDate,
+//       numOfAdults: numAdults,
+//       numOfChildren: numChildren
+//     };
+
+//     console.log("Sending booking:", booking);
+
+//     // Make booking
+//     const response = await ApiService.bookRoom(roomId, userId, booking);
+
+//     // Only trigger Razorpay if booking succeeded
+//     if (response.statusCode === 200) {
+//       // ⬇️ Add Razorpay Payment Step Here
+//       const options = {
+//         key: "rzp_test_P6Vfg99dxGR0Ji", // Replace with your test/live key
+//         amount: response.amount, // Amount in paise
+//         currency: response.currency || "INR",
+//         name: "Room Booking",
+//         description: "Hotel room booking payment",
+//         order_id: response.razorpayOrderId, // Order ID from backend
+//         handler: function (razorpayResponse) {
+//           alert("Payment successful! Payment ID: " + razorpayResponse.razorpay_payment_id);
+
+//           setConfirmationCode(response.bookingConfirmationCode); // Set confirmation code
+//           setShowMessage(true);
+
+//           // Navigate after 5 sec
+//           setTimeout(() => {
+//             setShowMessage(false);
+//             navigate('/rooms');
+//           }, 10000);
+//         },
+//         theme: {
+//           color: "#3399cc",
+//         }
+//       };
+
+//       const rzp = new window.Razorpay(options);
+//       rzp.open();
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     setErrorMessage(error.response?.data?.message || error.message);
+//     setTimeout(() => setErrorMessage(''), 5000);
+//   }
+// };
+
+
+
+
   const acceptBooking = async () => {
     try {
 
@@ -134,100 +199,139 @@ const RoomDetailsPage = () => {
   const { roomType, roomPrice, roomPhotoUrl, description, bookings } = roomDetails;
 
   return (
-    <div className="room-details-booking">
-      {showMessage && (
-        <p className="booking-success-message">
-          Booking successful! Confirmation code: {confirmationCode}. An SMS and email of your booking details have been sent to you.
-        </p>
-      )}
-      {errorMessage && (
-        <p className="error-message">
-          {errorMessage}
-        </p>
-      )}
-      <h2>Room Details</h2>
-      <br />
-      <img src={roomPhotoUrl} alt={roomType} className="room-details-image" />
-      <div className="room-details-info">
-        <h3>{roomType}</h3>
-        <p>Price: ${roomPrice} / night</p>
-        <p>{description}</p>
+    <div className="max-w-4xl mx-auto my-12 px-6 border border-gray-300 rounded-lg shadow-md shadow-[#687a5e] bg-white p-8">
+    {/* Success/Error Message */}
+    {showMessage && (
+      <p className="text-gray-600 font-semibold text-center mb-4">
+        Booking successful! Confirmation code: {confirmationCode}. An SMS and email of your booking details have been sent to you.
+      </p>
+    )}
+    {errorMessage && (
+      <p className="text-red-600 font-semibold text-center mb-4">
+        {errorMessage}
+      </p>
+    )}
+  
+    {/* Room Details Section */}
+    <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-6">Room Details</h2>
+  
+    <div className="flex justify-center mb-6">
+      <img src={roomPhotoUrl} alt={roomType} className="rounded-lg shadow-lg w-full sm:w-2/3 lg:w-1/2" />
+    </div>
+  
+    <div className="text-center mb-8">
+      <h3 className="text-xl font-semibold text-gray-800">{roomType}</h3>
+      <p className="text-xl text-[#6c943b]  font-medium ">Price: ${roomPrice} / night</p>
+      <p className="text-gray-500 mt-2">{description}</p>
+    </div>
+  
+    {/* Existing Booking Details */}
+    {bookings && bookings.length > 0 && (
+      <div className="mt-8 border border-gray-300 rounded-lg p-4 bg-slate-50 shadow-md shadow-[#687a5e] ">
+        <h3 className="text-2xl font-semibold text-gray-800 mb-4">Existing Booking Details</h3>
+        <ul className="space-y-4">
+          {bookings.map((booking, index) => (
+            <li key={booking.id} className="p-4 bg-white shadow-md rounded-md">
+              <span className="font-semibold">Booking {index + 1} </span>
+              <span className="text-gray-600">Check-in: {booking.checkInDate} </span>
+              <span className="text-gray-600">Out: {booking.checkOutDate}</span>
+            </li>
+          ))}
+        </ul>
       </div>
-      {bookings && bookings.length > 0 && (
-        <div>
-          <h3>Existing Booking Details</h3>
-          <ul className="booking-list">
-            {bookings.map((booking, index) => (
-              <li key={booking.id} className="booking-item">
-                <span className="booking-number">Booking {index + 1} </span>
-                <span className="booking-text">Check-in: {booking.checkInDate} </span>
-                <span className="booking-text">Out: {booking.checkOutDate}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      <div className="booking-info">
-        <button className="book-now-button" onClick={() => setShowDatePicker(true)}>Book Now</button>
-        <button className="go-back-button" onClick={() => setShowDatePicker(false)}>Go Back</button>
-        {showDatePicker && (
-          <div className="date-picker-container">
-            <DatePicker
-              className="detail-search-field"
-              selected={checkInDate}
-              onChange={(date) => setCheckInDate(date)}
-              selectsStart
-              startDate={checkInDate}
-              endDate={checkOutDate}
-              placeholderText="Check-in Date"
-              dateFormat="dd/MM/yyyy"
-              // dateFormat="yyyy-MM-dd"
-            />
-            <DatePicker
-              className="detail-search-field"
-              selected={checkOutDate}
-              onChange={(date) => setCheckOutDate(date)}
-              selectsEnd
-              startDate={checkInDate}
-              endDate={checkOutDate}
-              minDate={checkInDate}
-              placeholderText="Check-out Date"
-              // dateFormat="yyyy-MM-dd"
-              dateFormat="dd/MM/yyyy"
-            />
-
-            <div className='guest-container'>
-              <div className="guest-div">
-                <label>Adults:</label>
-                <input
-                  type="number"
-                  min="1"
-                  value={numAdults}
-                  onChange={(e) => setNumAdults(parseInt(e.target.value))}
-                />
-              </div>
-              <div className="guest-div">
-                <label>Children:</label>
-                <input
-                  type="number"
-                  min="0"
-                  value={numChildren}
-                  onChange={(e) => setNumChildren(parseInt(e.target.value))}
-                />
-              </div>
-              <button className="confirm-booking" onClick={handleConfirmBooking}>Confirm Booking</button>
+    )}
+  
+    {/* Booking Action Buttons */}
+    <div className="mt-8 flex justify-between items-center">
+      <button
+        className="px-6 py-3 bg-btn_bg text-white font-semibold rounded-md hover:bg-hover_btn_bg transition-colors duration-300"
+        onClick={() => setShowDatePicker(true)}
+      >
+        Book Now
+      </button>
+      <button
+        className="px-6 py-3 bg-gray-300 text-black font-semibold rounded-md hover:bg-gray-400 transition-colors duration-300"
+        onClick={() => setShowDatePicker(false)}
+      >
+        Go Back
+      </button>
+    </div>
+  
+    {/* Date Picker & Guest Information */}
+    {showDatePicker && (
+      <div className="mt-8 border border-gray-300 rounded-lg p-4 bg-blue-200 shadow-sm  ">
+        <div className="flex flex-col items-center space-y-6">
+          <DatePicker
+            className="px-4 py-2 border border-gray-500 bg-sky-50  text-black  rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            selected={checkInDate}
+            onChange={(date) => setCheckInDate(date)}
+            selectsStart
+            startDate={checkInDate}
+            endDate={checkOutDate}
+            placeholderText="Check-in Date"
+            dateFormat="dd/MM/yyyy"
+          />
+          <DatePicker
+            className="px-4 py-2 border border-gray-500 bg-sky-50  text-black  rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+            selected={checkOutDate}
+            onChange={(date) => setCheckOutDate(date)}
+            selectsEnd
+            startDate={checkInDate}
+            endDate={checkOutDate}
+            minDate={checkInDate}
+            placeholderText="Check-out Date"
+            dateFormat="dd/MM/yyyy"
+          />
+          
+          {/* Guest Information */}
+          <div className="flex justify-between space-x-6 mt-6 w-full max-w-md">
+            <div className="flex flex-col">
+              <label className="text-lg">Adults:</label>
+              <input
+                type="number"
+                min="1"
+                value={numAdults}
+                onChange={(e) => setNumAdults(parseInt(e.target.value))}
+                className="px-4 py-2 border border-gray-500 bg-sky-50  text-black  rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label className="text-lg">Children:</label>
+              <input
+                type="number"
+                min="0"
+                value={numChildren}
+                onChange={(e) => setNumChildren(parseInt(e.target.value))}
+                className="px-4 py-2 border border-gray-500 bg-sky-50  text-black  rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
+              />
             </div>
           </div>
-        )}
-        {totalPrice > 0 && (
-          <div className="total-price">
-            <p>Total Price: ${totalPrice}</p>
-            <p>Total Guests: {totalGuests}</p>
-            <button onClick={acceptBooking} className="accept-booking">Accept Booking</button>
-          </div>
-        )}
+  
+          <button
+            className="mt-6 px-6 py-3 bg-btn_bg text-white font-semibold rounded-md hover:bg-hover_btn_bg transition-colors duration-300"
+            onClick={handleConfirmBooking}
+          >
+            Confirm Booking
+          </button>
+        </div>
       </div>
-    </div>
+    )}
+  
+    {/* Total Price Section */}
+    {totalPrice > 0 && (
+      <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
+        <p className="text-xl font-semibold  text-gray-800">Total Price: ${totalPrice}</p>
+        <p className="text-xl font-semibold  text-gray-700">Total Guests: {totalGuests}</p>
+        <button
+          onClick={acceptBooking}
+          className="mt-4 px-6 py-3 bg-btn_bg text-white font-semibold rounded-md hover:bg-hover_btn_bg transition-colors duration-300"
+        >
+          Accept Booking
+        </button>
+      </div>
+    )}
+  </div>
+  
   );
 };
 

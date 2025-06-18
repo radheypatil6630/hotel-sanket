@@ -58,30 +58,49 @@ const RoomSearch = ({ handleSearchResult }) => {
   };
 
   return (
-    <section>
-      <div className="search-container">
+    <div className="">
+    <div className=" max-w-6xl mx-auto bg-white pl-6  p-2 border border-gray-300 rounded-full shadow-xl flex  justify-between ">
+  
+    {/* <div className="search-field">
+          <label className="block text-black font-medium">Location</label>
+          <select
+            name="Select location "
+            className="max-w-full h-8 mx-4  lg:m-0 text-black rounded-md border-none"
+          ><option className='border-none'>mumbai</option></select>
+        </div> */}
+  
+
         <div className="search-field">
-          <label>Check-in Date</label>
+          <label className="block text-black font-medium">Check-in Date</label>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Select Check-in Date"
+            className="max-w-full h-8 p-2 mx-4 lg:m-0 placeholder-black  text-black rounded-md border-none"
           />
         </div>
-        <div className="search-field">
-          <label>Check-out Date</label>
+  
+        <div className="">
+          <label className="block text-black font-medium">Check-out Date</label>
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
             dateFormat="dd/MM/yyyy"
             placeholderText="Select Check-out Date"
+            className="max-w-full h-8 p-2 border border-gray-300 placeholder-black  rounded-md border-none mx-8 lg:m-0 "
           />
         </div>
-
-        <div className="search-field">
-          <label>Room Type</label>
-          <select value={roomType} onChange={(e) => setRoomType(e.target.value)}>
+  
+        <div className="flex flex-col">
+          <label 
+          className="block text-black font-medium"
+          >Room Type</label>
+          <select
+            value={roomType}
+            onChange={(e) => setRoomType(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md border-none mx-4 lg:m-0"
+          >
             <option disabled value="">
               Select Room Type
             </option>
@@ -92,12 +111,19 @@ const RoomSearch = ({ handleSearchResult }) => {
             ))}
           </select>
         </div>
-        <button className="home-search-button" onClick={handleInternalSearch}>
-          Search Rooms
-        </button>
-      </div>
-      {error && <p className="error-message">{error}</p>}
-    </section>
+      {/* </div> */}
+  
+      <button
+        className="   bg-btn_bg text-white px-12  rounded-full hover:bg-hover_btn_bg transition duration-300"
+        onClick={handleInternalSearch}
+      >
+        Search 
+      </button>
+    </div>
+  
+    {error && <p className="error-message text-red-600 mt-2 text-bold lg:text-2xl text-center">{error}</p>}
+  </div>
+  
   );
 };
 
