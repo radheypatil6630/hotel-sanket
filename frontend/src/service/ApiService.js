@@ -135,8 +135,7 @@ export default class ApiService {
     }
 
 
-    /**BOOKING */
-    /* This  saves a new booking to the databse */
+   
     static async bookRoom(roomId, userId, booking) {
 
         console.log("USER ID IS: " + userId)
@@ -144,11 +143,17 @@ export default class ApiService {
         const response = await axios.post(`${this.BASE_URL}/bookings/book-room/${roomId}/${userId}`, booking, {
             headers: this.getHeader()
         })
-        console.log(response.data);
+    
         return response.data
     }
 
-    /* This  gets alll bokings from the database */
+    static async paymentGetway(totalPrice){
+        const response = await axios.post(`${this.BASE_URL}/api/payments/create-order?amount=${totalPrice}&currency=INR`)
+
+        return response.data
+    }
+
+ 
     static async getAllBookings() {
         const result = await axios.get(`${this.BASE_URL}/bookings/all`, {
             headers: this.getHeader()
