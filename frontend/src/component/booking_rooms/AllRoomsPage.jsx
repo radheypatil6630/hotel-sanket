@@ -3,6 +3,7 @@ import ApiService from '../../service/ApiService';
 import Pagination from '../common/Pagination';
 import RoomResult from '../common/RoomResult';
 import RoomSearch from '../common/RoomSearch';
+import AboutSection from '../common/AboutSection';
 
 
 
@@ -71,6 +72,7 @@ const AllRoomsPage = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
+    
     <div className="max-w-6xl mx-auto my-10 px-6">
     <h2 className="text-4xl font-bold font-serif text-center text-secondary  mb-8">All Rooms</h2>
   
@@ -109,7 +111,10 @@ const AllRoomsPage = () => {
         paginate={paginate}
       />
     </div>
-  </div>
+
+    </div>
+ 
+
   
   
   );

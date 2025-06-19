@@ -28,12 +28,12 @@ const RoomResult = ({ roomSearchResults }) => {
                   alt={room.roomType}
                 />
                 <div className="room-details px-4">
-                <p className="text-2xl font-semibold text-black mt-2">{room.roomDescription}</p>
+                <p className="text-2xl font-semibold text-black mt-2">{room.roomName}</p>
                   <h3 className="text-md font-semibold text-gray-800">{room.roomType}</h3>
-                  {/* <p className="text-sm text-gray-500 mt-2">{room.roomDescription}</p> */}
+                  {/* <p className="text-sm text-gray-500 mt-2">{room.roomName}</p> */}
                   <div className="flex justify-between mt-2">
                   <p className="text-lg text-[#6c943b] font-semibold">Price: ${room.roomPrice} / night</p>
-                  <div className="flex items-center mt-2 bg-black text-white px-2  rounded-full w-fit">
+                  <div className="flex items-center mt-2 bg-black text-white px-2  rounded-md w-fit">
     <span className="text-yellow-400 mr-1">★</span>
     <span className="text-sm">{room.rating || '4.5'}</span>
   </div>

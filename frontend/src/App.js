@@ -20,7 +20,9 @@ import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditBookingPage from './component/admin/EditBookingPage';
 import ProfilePage from './component/profile/ProfilePage';
 import EditProfilePage from './component/profile/EditProfilePage';
+import About  from './component/common/About';  
 import { ProtectedRoute, AdminRoute } from './service/guard';
+import AboutSection from './component/common/AboutSection';
 
 function App() {
   return (
@@ -47,6 +49,10 @@ function App() {
               element={<ProtectedRoute element={<EditProfilePage />} />}
             />
 
+            <Route path="/aboutus"
+            element={<ProtectedRoute element={<About/>}/>}
+            />
+
             {/* Admin Routes */}
             <Route path="/admin"
               element={<AdminRoute element={<AdminPage />} />}
@@ -67,10 +73,11 @@ function App() {
               element={<AdminRoute element={<EditBookingPage />} />}
             />
 
-            {/* Fallback Route */}
+          
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </div>
+     
         <FooterComponent />
       </div>
     </BrowserRouter>

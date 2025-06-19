@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import Pagination from '../common/Pagination';
+import AboutSection from '../common/AboutSection';
 
 const ManageBookingsPage = () => {
     const [bookings, setBookings] = useState([]);
@@ -53,6 +54,7 @@ const ManageBookingsPage = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     return (
+   
         <div className="max-w-5xl mx-auto my-10 px-6">
         <h2 className="text-3xl font-bold font-serif text-center text-secondary mb-8">All Bookings</h2>
       
@@ -96,7 +98,7 @@ const ManageBookingsPage = () => {
           />
         </div>
       </div>
-      
+
     );
 };
 

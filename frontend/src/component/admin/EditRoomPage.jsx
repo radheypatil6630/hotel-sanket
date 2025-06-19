@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import AboutSection from '../common/AboutSection';
 
 const EditRoomPage = () => {
     const { roomId } = useParams();
@@ -9,7 +10,7 @@ const EditRoomPage = () => {
         roomPhotoUrl: '',
         roomType: '',
         roomPrice: '',
-        roomDescription: '',
+        roomName: '',
     });
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -24,7 +25,7 @@ const EditRoomPage = () => {
                     roomPhotoUrl: response.room.roomPhotoUrl,
                     roomType: response.room.roomType,
                     roomPrice: response.room.roomPrice,
-                    roomDescription: response.room.roomDescription,
+                    roomName: response.room.roomName,
                 });
             } catch (error) {
                 setError(error.response?.data?.message || error.message);
@@ -58,7 +59,7 @@ const EditRoomPage = () => {
             const formData = new FormData();
             formData.append('roomType', roomDetails.roomType);
             formData.append('roomPrice', roomDetails.roomPrice);
-            formData.append('roomDescription', roomDetails.roomDescription);
+            formData.append('roomName', roomDetails.roomName);
 
             if (file) {
                 formData.append('photo', file);
@@ -100,6 +101,7 @@ const EditRoomPage = () => {
     };
 
     return (
+    
         <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-xl shadow-[#a7ba9c] border border-gray-300 rounded-xl hover:shadow-[#687a5e]   rounded-lg overflow-hidden ">
         <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-6">Edit Room</h2>
       
@@ -123,17 +125,17 @@ const EditRoomPage = () => {
           </div>
          
           <div>
-            <label className="block font-semibold text-gray-700 mb-1">Room Location</label>
-            <input
-              type="text"
-              name="roomType"
-              // value={roomDetails.roomType}
-              // onChange={handleChange}
+            <label className="block font-semibold text-gray-700 mb-1">Room Name</label>
+            <input 
+            type='text'
+              name="roomName"
+              value={roomDetails.roomName}
+              onChange={handleChange}
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-btn_bg"
-            />
+            ></input>
           </div>
-
-          {/* Room Type */}
+      
+        
           <div>
             <label className="block font-semibold text-gray-700 mb-1">Room Type</label>
             <input
@@ -157,17 +159,8 @@ const EditRoomPage = () => {
             />
           </div>
       
-          {/* Room Description */}
-          <div>
-            <label className="block font-semibold text-gray-700 mb-1">Room Description</label>
-            <textarea
-              name="roomDescription"
-              value={roomDetails.roomDescription}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-1 focus:ring-btn_bg"
-            ></textarea>
-          </div>
-      
+         
+     
           {/* Action Buttons */}
           <div className="flex flex-col md:flex-row gap-4 mt-6">
             <button
@@ -185,7 +178,7 @@ const EditRoomPage = () => {
           </div>
         </div>
       </div>
-      
+     
     );
 };
 

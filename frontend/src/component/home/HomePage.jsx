@@ -2,6 +2,7 @@ import React, { useState , useEffect } from "react";
 import RoomResult from "../common/RoomResult";
 import RoomSearch from "../common/RoomSearch";
 import ApiService from '../../service/ApiService';
+import AboutSection from "../common/AboutSection";
 
 
 
@@ -45,8 +46,7 @@ const HomePage = () => {
             className="absolute top-0 left-0 h-full w-[55%] object-cover z-10"
             style={{ clipPath: 'polygon(46% 0, 89% 48%, 70% 100%, 0 100%, 0 0)' }}
           />
-        {/* clip-path: polygon(37% 0, 100% 45%, 73% 100%, 1% 100%, 0 0); */}
-        {/* Search Box */}
+       
         <div className="absolute bottom-28 left-2/4 transform -translate-x-1/2 w-full max-w-6xl px-4 z-40">
           <RoomSearch handleSearchResult={handleSearchResult} />
         </div>
@@ -123,6 +123,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <AboutSection/>
     </div>
   );
 }

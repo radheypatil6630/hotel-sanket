@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
-
+import AboutSection from '../common/AboutSection';
 
 const AddRoomPage = () => {
     const navigate = useNavigate();
@@ -9,7 +9,7 @@ const AddRoomPage = () => {
         roomPhotoUrl: '',
         roomType: '',
         roomPrice: '',
-        roomDescription: '',
+        roomName: '',
     });
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -66,7 +66,7 @@ const AddRoomPage = () => {
 
 
     const addRoom = async () => {
-        if (!roomDetails.roomType || !roomDetails.roomPrice || !roomDetails.roomDescription) {
+        if (!roomDetails.roomType || !roomDetails.roomPrice || !roomDetails.roomName) {
             setError('All room details must be provided.');
             setTimeout(() => setError(''), 5000);
             return;
@@ -80,7 +80,7 @@ const AddRoomPage = () => {
             const formData = new FormData();
             formData.append('roomType', roomDetails.roomType);
             formData.append('roomPrice', roomDetails.roomPrice);
-            formData.append('roomDescription', roomDetails.roomDescription);
+            formData.append('roomName', roomDetails.roomName);
 
             if (file) {
                 formData.append('photo', file);
@@ -102,6 +102,7 @@ const AddRoomPage = () => {
     };
 
     return (
+     
         <div className="max-w-3xl mx-auto my-10 p-6 bg-white shadow-lg border border-gray-300  hover:shadow-[#687a5e]  overflow-hidden rounded-xl">
         <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-6">Add New Room</h2>
       
@@ -121,6 +122,18 @@ const AddRoomPage = () => {
             />
           </div>
       
+          <div className="flex flex-col gap-2">
+            <label className="font-semibold">Room Name</label>
+            <input
+                type="text"
+              name="roomName"
+              value={roomDetails.roomName}
+              onChange={handleChange}
+              rows="4"
+              className="border border-gray-300 rounded-md px-3 py-2 resize-none"
+            ></input>
+          </div>
+
           <div className="flex flex-col gap-2">
             <label className="font-semibold">Room Type</label>
             <select
@@ -149,33 +162,7 @@ const AddRoomPage = () => {
             )}
           </div>
       
-          <div className="flex flex-col gap-2 border-1">
-            <label className="font-semibold">Room Location</label>
-            <select
-              value={roomDetails.roomType}
-              onChange={handleRoomTypeChange}
-              className="border border-gray-300 rounded-md px-3 py-2"
-            >
-              <option value="">Select a room location</option>
-              {roomTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-              <option value="new">Other (please specify)</option>
-            </select>
       
-            {newRoomType && (
-              <input
-                type="text"
-                name="roomType"
-                placeholder="Enter new room location"
-                value={roomDetails.roomType}
-                onChange={handleChange}
-                className="border border-gray-300 active : border-1 active:border-green-300 rounded-md px-3 py-2"
-              />
-            )}
-          </div>
 
           <div className="flex flex-col gap-2">
             <label className="font-semibold">Room Price</label>
@@ -188,16 +175,7 @@ const AddRoomPage = () => {
             />
           </div>
       
-          <div className="flex flex-col gap-2">
-            <label className="font-semibold">Room Description</label>
-            <textarea
-              name="roomDescription"
-              value={roomDetails.roomDescription}
-              onChange={handleChange}
-              rows="4"
-              className="border border-gray-300 rounded-md px-3 py-2 resize-none"
-            ></textarea>
-          </div>
+          
       
           <button
             onClick={addRoom}
@@ -207,6 +185,7 @@ const AddRoomPage = () => {
           </button>
         </div>
       </div>
+     
       
     );
 };

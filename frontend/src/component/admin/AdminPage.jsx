@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ApiService from '../../service/ApiService';
+import AboutSection from "../common/AboutSection";
 
 const AdminPage = () => {
     const [adminName, setAdminName] = useState('');
@@ -20,6 +21,7 @@ const AdminPage = () => {
     }, []);
 
     return (
+ 
         <div className="max-w-3xl mx-auto my-16 p-8 bg-white shadow-md rounded-xl text-center border border-gray-300 shadow-[#687a5e]">
         <h1 className="text-3xl font-bold font-serif text-secondary mb-8">Welcome, {adminName}</h1>
       
@@ -38,7 +40,7 @@ const AdminPage = () => {
           </button>
         </div>
       </div>
-      
+    
     );
 }
 

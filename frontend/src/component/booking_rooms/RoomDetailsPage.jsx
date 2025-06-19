@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
+import ApiService from '../../service/ApiService';
 import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
 
 const RoomDetailsPage = () => {
   const navigate = useNavigate();
@@ -108,6 +107,8 @@ const RoomDetailsPage = () => {
         setTimeout(() => setErrorMessage(""), 5000);
         return; 
       }
+
+
       const orderResponse = await ApiService.paymentGetway(totalPrice)
      
 
@@ -123,6 +124,8 @@ const RoomDetailsPage = () => {
         handler: async function (response) {
           alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
 
+
+          // const bookingResponse = await ApiService.bookRoom(roomId, userId, booking);
           if (bookingResponse.statusCode === 200) {
             setConfirmationCode(bookingResponse.bookingConfirmationCode);
             setShowMessage(true);
@@ -185,7 +188,7 @@ const RoomDetailsPage = () => {
 
       <div className="text-center mb-8">
         <h3 className="text-xl font-semibold text-gray-800">{roomType}</h3>
-        <p className="text-xl text-[#6c943b]  font-medium ">Price: ${roomPrice} / night</p>
+        <p className="text-xl text-[#6c943b]  font-medium ">Price: ₹{roomPrice} / night</p>
         <p className="text-gray-500 mt-2">{description}</p>
       </div>
 

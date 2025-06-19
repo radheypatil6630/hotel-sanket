@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import AboutSection from '../common/AboutSection';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -33,24 +34,12 @@ const ProfilePage = () => {
     };
 
     return (
+    
         <div className="profile-page max-w-4xl mx-auto px-6 py-8 my-12  border border-gray-300 rounded-lg shadow-lg shadow-[#687a5e] bg-white">
         {user && <h2 className="text-4xl font-serif font-semibold text-secondary text-center">Welcome, {user.name}</h2>}
         
 
-        {/* <div className="profile-actions flex justify-center gap-4 mt-6">
-          <button
-            className="edit-profile-button bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700"
-            onClick={handleEditProfile}
-          >
-            Edit Profile
-          </button>
-          <button
-            className="logout-button bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div> */}
+       
       
    
         {error && <p className="error-message text-red-600 text-center mt-4">{error}</p>}
@@ -89,6 +78,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+     
       
     );
 };

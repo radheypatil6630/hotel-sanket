@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react';
 import ApiService from '../../service/ApiService'; 
-
+import AboutSection from '../common/AboutSection';
 import Lottie from "lottie-react";
 
 const FindBookingPage = () => {
@@ -33,6 +33,7 @@ const FindBookingPage = () => {
     };
 
     return (
+      
         <div className="max-w-4xl mx-auto my-12 px-6 border border-gray-300 rounded-lg shadow-md shadow-[#687a5e]  bg-white p-8">
         <h2 className="text-4xl font-bold font-serif text-center text-secondary mb-8">Find Your Booking</h2>
       
@@ -93,7 +94,7 @@ const FindBookingPage = () => {
         <h3 className="text-2xl font-semibold text-gray-800 mb-2">Room Details</h3>
         <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Type:</span> {bookingDetails.room.roomType}</p>
         <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Price:</span> ${bookingDetails.room.roomPrice}</p>
-        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Description:</span> {bookingDetails.room.roomDescription}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Description:</span> {bookingDetails.room.roomName}</p>
         <img
           src={bookingDetails.room.roomPhotoUrl}
           alt="Room"
@@ -105,8 +106,10 @@ const FindBookingPage = () => {
     </div>
   )}
       </div>
-      
+  
+     
     );
+    
 };
 
 export default FindBookingPage;

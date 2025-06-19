@@ -30,7 +30,7 @@ public class RoomService implements IRoomService {
     private AwsS3Service awsS3Service;
 
     @Override
-    public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String description) {
+    public Response addNewRoom(MultipartFile photo, String roomType, BigDecimal roomPrice, String roomName) {
         Response response = new Response();
 
         try {
@@ -39,7 +39,7 @@ public class RoomService implements IRoomService {
             room.setRoomPhotoUrl(imageUrl);
             room.setRoomType(roomType);
             room.setRoomPrice(roomPrice);
-            room.setRoomDescription(description);
+            room.setRoomName(roomName);
             Room savedRoom = roomRepository.save(room);
             RoomDTO roomDTO = Utils.mapRoomEntityToRoomDTO(savedRoom);
             response.setStatusCode(200);
@@ -97,7 +97,7 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public Response updateRoom(Long roomId, String description, String roomType, BigDecimal roomPrice, MultipartFile photo) {
+    public Response updateRoom(Long roomId, String roomName, String roomType, BigDecimal roomPrice, MultipartFile photo) {
         Response response = new Response();
 
         try {
@@ -108,7 +108,7 @@ public class RoomService implements IRoomService {
             Room room = roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
             if (roomType != null) room.setRoomType(roomType);
             if (roomPrice != null) room.setRoomPrice(roomPrice);
-            if (description != null) room.setRoomDescription(description);
+            if (roomName != null) room.setRoomName(roomName);
             if (imageUrl != null) room.setRoomPhotoUrl(imageUrl);
 
             Room updatedRoom = roomRepository.save(room);

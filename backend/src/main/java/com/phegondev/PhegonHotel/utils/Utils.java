@@ -46,7 +46,7 @@ public class Utils {
         roomDTO.setRoomType(room.getRoomType());
         roomDTO.setRoomPrice(room.getRoomPrice());
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
-        roomDTO.setRoomDescription(room.getRoomDescription());
+        roomDTO.setRoomName(room.getRoomName());
         return roomDTO;
     }
 
@@ -70,7 +70,7 @@ public class Utils {
         roomDTO.setRoomType(room.getRoomType());
         roomDTO.setRoomPrice(room.getRoomPrice());
         roomDTO.setRoomPhotoUrl(room.getRoomPhotoUrl());
-        roomDTO.setRoomDescription(room.getRoomDescription());
+        roomDTO.setRoomName(room.getRoomName());
 
         if (room.getBookings() != null) {
             roomDTO.setBookings(room.getBookings().stream().map(Utils::mapBookingEntityToBookingDTO).collect(Collectors.toList()));
@@ -99,7 +99,7 @@ public class Utils {
             roomDTO.setRoomType(booking.getRoom().getRoomType());
             roomDTO.setRoomPrice(booking.getRoom().getRoomPrice());
             roomDTO.setRoomPhotoUrl(booking.getRoom().getRoomPhotoUrl());
-            roomDTO.setRoomDescription(booking.getRoom().getRoomDescription());
+            roomDTO.setRoomName(booking.getRoom().getRoomName());
             bookingDTO.setRoom(roomDTO);
         }
         return bookingDTO;

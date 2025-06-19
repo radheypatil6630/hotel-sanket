@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
+import ApiService from '../../service/ApiService'; 
+import AboutSection from '../common/AboutSection';
 
 const EditBookingPage = () => {
     const navigate = useNavigate();
@@ -47,7 +48,8 @@ const EditBookingPage = () => {
     };
 
     return (
-<div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-xl shadow-[#687a5e] rounded-xl border border-gray-300 ">
+
+        <div className="max-w-4xl mx-auto my-10 p-6 bg-white shadow-xl shadow-[#687a5e] rounded-xl border border-gray-300 ">
   <h2 className="text-3xl font-bold font-serif text-center text-secondary mb-6">Booking Details</h2>
 
   {error && <p className="text-red-500 text-center mb-4">{error}</p>}
@@ -81,7 +83,7 @@ const EditBookingPage = () => {
         <h3 className="text-2xl font-semibold text-gray-800 mb-2">Room Details</h3>
         <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Type:</span> {bookingDetails.room.roomType}</p>
         <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Price:</span> ${bookingDetails.room.roomPrice}</p>
-        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Description:</span> {bookingDetails.room.roomDescription}</p>
+        <p className=' border border-gray-300 rounded-lg p-2 bg-sky-50 hover:bg-[#74d143] hover:text-white'><span className="font-semibold">Name:</span> {bookingDetails.room.roomName}</p>
         <img
           src={bookingDetails.room.roomPhotoUrl}
           alt="Room"
@@ -93,7 +95,7 @@ const EditBookingPage = () => {
         onClick={() => acheiveBooking(bookingDetails.id)}
         className="w-full bg-btn_bg text-white font-bold py-3 rounded-md hover:bg-hover_btn_bg transition-colors duration-300"
       >
-        Archive Booking
+        Delete Booking
       </button>
     </div>
   )}

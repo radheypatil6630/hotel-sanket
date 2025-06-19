@@ -31,7 +31,7 @@ public class RoomController {
             @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "roomType", required = false) String roomType,
             @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
-            @RequestParam(value = "roomDescription", required = false) String roomDescription
+            @RequestParam(value = "roomName", required = false) String roomName
     ) {
 
         if (photo == null || photo.isEmpty() || roomType == null || roomType.isBlank() || roomPrice == null || roomType.isBlank()) {
@@ -40,7 +40,7 @@ public class RoomController {
             response.setMessage("Please provide values for all fields(photo, roomType,roomPrice)");
             return ResponseEntity.status(response.getStatusCode()).body(response);
         }
-        Response response = roomService.addNewRoom(photo, roomType, roomPrice, roomDescription);
+        Response response = roomService.addNewRoom(photo, roomType, roomPrice, roomName);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
@@ -89,10 +89,10 @@ public class RoomController {
                                                @RequestParam(value = "photo", required = false) MultipartFile photo,
                                                @RequestParam(value = "roomType", required = false) String roomType,
                                                @RequestParam(value = "roomPrice", required = false) BigDecimal roomPrice,
-                                               @RequestParam(value = "roomDescription", required = false) String roomDescription
+                                               @RequestParam(value = "roomName", required = false) String roomName
 
     ) {
-        Response response = roomService.updateRoom(roomId, roomDescription, roomType, roomPrice, photo);
+        Response response = roomService.updateRoom(roomId, roomName, roomType, roomPrice, photo);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 

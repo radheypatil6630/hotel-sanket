@@ -19,14 +19,7 @@ function Navbar() {
     return (
      
         <nav className=" flex justify-between items-center px-6 py-4 bg-primary text-white shadow-md text-xl font-sans relative z-2absolute top-0 left-0 w-full z-20 flex justify-between items-center px-6 py-4 text-white text-lg">
-        {/* Logo */}
-        {/* <div className="text-2xl font-bold text-white">
-          <NavLink to="/home" className="no-underline hover:text-[#84a871]">
-            Hotel Sanket
-          </NavLink>
-        </div> */}
-      
-        {/* Navigation Links */}
+       
         <ul className="flex gap-8 pl-[35%]">
           <li>
             <NavLink
@@ -99,6 +92,20 @@ function Navbar() {
               </NavLink>
             </li>
           )}
+
+<li>
+            <NavLink
+              to="/aboutus"
+              className={({ isActive }) =>
+                `relative inline-block px-1 
+              ${isActive ? "text-[#84a871] font-semibold" : "text-[#a7ba9c]"} 
+              after:block after:h-[2px] after:bg-gray-300 after:scale-x-0 
+              hover:after:scale-x-100 hover:text-white after:transition-transform after:origin-left`
+                     }
+            >
+              About us
+            </NavLink>
+          </li>
         </ul>
       
         {/* Auth Buttons */}

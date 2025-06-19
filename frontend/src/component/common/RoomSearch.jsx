@@ -61,14 +61,7 @@ const RoomSearch = ({ handleSearchResult }) => {
     <div className="">
     <div className=" max-w-6xl mx-auto bg-white pl-6  p-2 border border-gray-300 rounded-full shadow-xl flex  justify-between ">
   
-    {/* <div className="search-field">
-          <label className="block text-black font-medium">Location</label>
-          <select
-            name="Select location "
-            className="max-w-full h-8 mx-4  lg:m-0 text-black rounded-md border-none"
-          ><option className='border-none'>mumbai</option></select>
-        </div> */}
-  
+
 
         <div className="search-field">
           <label className="block text-black font-medium">Check-in Date</label>

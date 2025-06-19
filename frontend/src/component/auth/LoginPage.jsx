@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate,useLocation } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import AboutSection from "../common/AboutSection";
 
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ function LoginPage() {
 
     return (
         <div className="flex flex-col justify-center items-center min-h-screen ">
-        <div className=" flex flex-col items-center   p-4 border border-gray-300 rounded-lg shadow-md shadow-[#687a5e]">
+        <div className=" flex flex-col items-center  m-8  p-4  border border-gray-300 rounded-lg shadow-md shadow-[#687a5e]">
             <h2 className=" text-4xl font-semibold font-serif text-center text-secondary mt-4">Welcome Back</h2>
             <h4 className="text-lg text-gray-700 "> Enter your email and password to access your account</h4>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4  rounded px-8 pt-6 pb-8 mb-4 w-full max-w-sm">
@@ -77,6 +78,7 @@ function LoginPage() {
             </p>
         </div>
         {error && <p className="error-message text-red-500 ">{error}</p>}
+     
         </div>
     );
 }
