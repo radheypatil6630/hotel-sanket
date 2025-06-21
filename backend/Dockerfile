@@ -1,11 +1,8 @@
-# Use OpenJDK to run the JAR
+FROM maven:3.8.3-openjdk-17 AS build
+COPY . .
+RUN mvn clean package -DskipTests
+
 FROM openjdk:17.0.1-jdk-slim
-
-# Copy the built jar into the image
-COPY out/artifacts/SanketHotel_jar/SanketHotel.jar sankethotelbooking.jar
-
-# Expose the port your Spring Boot app runs on
-EXPOSE 4040
-
-# Run the jar
-ENTRYPOINT ["java", "-jar", "sankethotelbooking.jar"]
+COPY --from=build /target/SanketHotel.jar sankethotelbooking.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","sankethotelbooking.jar"]
