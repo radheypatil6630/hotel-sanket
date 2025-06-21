@@ -1,0 +1,5 @@
+# Created at 2025-06-21T19:29:26.062
+Boot Manifest-JAR contains absolute paths in classpath 'D:\programming\Projects\sanket-hotel-booking-and-management\backend\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
