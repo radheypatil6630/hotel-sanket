@@ -18,6 +18,12 @@ public class    Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+//    @NotNull(message = "user name is required")
+    private String userName;
+
+//    @NotNull(message = "user phone number is required")
+    private String phoneNumber;
+
     @NotNull(message = "check in date is required")
     private LocalDate checkInDate;
 
@@ -42,6 +48,7 @@ public class    Booking {
     @JoinColumn(name = "room_id")
     private Room room;
 
+
     public void calculateTotalNumberOfGuest() {
         this.totalNumOfGuest = this.numOfAdults + this.numOfChildren;
     }
@@ -60,6 +67,8 @@ public class    Booking {
     public String toString() {
         return "Booking{" +
                 "id=" + id +
+                ", user=" + userName +
+                ", phoneNumber=" + phoneNumber +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +
                 ", numOfAdults=" + numOfAdults +

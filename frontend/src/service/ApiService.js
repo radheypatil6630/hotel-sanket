@@ -157,6 +157,7 @@ export default class ApiService {
         const result = await axios.get(`${this.BASE_URL}/bookings/all`, {
             headers: this.getHeader()
         })
+        console.log(result.data)
         return result.data
     }
 

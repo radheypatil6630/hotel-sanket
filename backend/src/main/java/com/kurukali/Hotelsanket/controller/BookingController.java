@@ -3,6 +3,7 @@ package com.kurukali.Hotelsanket.controller;
 
 import com.kurukali.Hotelsanket.dto.Response;
 import com.kurukali.Hotelsanket.entity.Booking;
+import com.kurukali.Hotelsanket.entity.User;
 import com.kurukali.Hotelsanket.service.interfac.IBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,9 @@ public class BookingController {
     @Autowired
     private IBookingService bookingService;
 
+//    @Autowired
+//    Booking booking;
+
     @PostMapping("/book-room/{roomId}/{userId}")
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<Response> saveBookings(@PathVariable Long roomId,
@@ -24,12 +28,15 @@ public class BookingController {
                                                  @RequestBody Booking bookingRequest) {
 
 
+//        User user = userRepository.findById(userId);
+
         Response response = bookingService.saveBooking(roomId, userId, bookingRequest);
 
         System.out.println("roomId: " + roomId);
         System.out.println("userId: " + userId);
-        System.out.println("Received booking: " + bookingRequest);
 
+        System.out.println("Received booking: " + bookingRequest);
+        System.out.println("response"+response);
 
         return ResponseEntity.status(response.getStatusCode()).body(response );
 

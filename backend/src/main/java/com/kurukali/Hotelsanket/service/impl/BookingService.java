@@ -2,6 +2,7 @@ package com.kurukali.Hotelsanket.service.impl;
 
 import com.kurukali.Hotelsanket.dto.BookingDTO;
 import com.kurukali.Hotelsanket.dto.Response;
+import com.kurukali.Hotelsanket.dto.UserDTO;
 import com.kurukali.Hotelsanket.entity.Booking;
 import com.kurukali.Hotelsanket.entity.Room;
 import com.kurukali.Hotelsanket.entity.User;
@@ -32,7 +33,7 @@ public class BookingService implements IBookingService {
 
 
     @Override
-    public Response saveBooking(Long roomId, Long userId, Booking bookingRequest) {
+    public Response saveBooking(Long roomId, Long userId, Booking bookingRequest ) {
         System.out.println("Inside controller method");
         Response response = new Response();
 
@@ -44,6 +45,10 @@ public class BookingService implements IBookingService {
             Room room = roomRepository.findById(roomId).orElseThrow(() -> new OurException("Room Not Found"));
             User user = userRepository.findById(userId).orElseThrow(() -> new OurException("User Not Found"));
 
+            String userName = user.getName();
+            String phoneNumber = user.getPhoneNumber();
+
+
             List<Booking> existingBookings = room.getBookings();
 
             if (!roomIsAvailable(bookingRequest, existingBookings)) {
@@ -53,6 +58,11 @@ public class BookingService implements IBookingService {
             System.out.println("Inside controller method2 ");
             bookingRequest.setRoom(room);
             bookingRequest.setUser(user);
+            bookingRequest.setUserName(userName);
+            bookingRequest.setPhoneNumber(phoneNumber);
+
+
+
             String bookingConfirmationCode = Utils.generateRandomConfirmationCode(10);
             bookingRequest.setBookingConfirmationCode(bookingConfirmationCode);
             Booking savedBooking =  bookingRepository.save(bookingRequest);
@@ -63,6 +73,8 @@ public class BookingService implements IBookingService {
             response.setMessage("successful");
             response.setBookingConfirmationCode(bookingConfirmationCode);
 
+
+            System.out.println(response);
 
 
         } catch (Exception e) {

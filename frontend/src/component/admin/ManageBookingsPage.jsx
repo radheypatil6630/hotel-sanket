@@ -75,6 +75,7 @@ const ManageBookingsPage = () => {
           {currentBookings.map((booking) => (
             <div key={booking.id} className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
               <p><strong className="text-gray-900 text-lg">Booking Code:</strong> {booking.bookingConfirmationCode}</p>
+                <p><strong className="text-gray-700">Guest Name :</strong>{booking.user} </p>
               <p><strong className="text-gray-700">Check In Date:</strong> {booking.checkInDate}</p>
               <p><strong className="text-gray-700">Check Out Date:</strong> {booking.checkOutDate}</p>
               <p><strong className="text-gray-700">Total Guests:</strong> {booking.totalNumOfGuest}</p>
